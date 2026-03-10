@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>La Máquina de Universos</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Georgia;
+color:white;
+text-align:center;
+overflow:hidden;
+}
+
+#videoFondo{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-1;
+}
+
+.videoFondo{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-1;
+}
+
+.pantalla{
+position:absolute;
+width:100%;
+height:100%;
+display:none;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+background-size:cover;
+background-position:center;
+}
+
+.activa{
+display:flex;
+}
+
+.botones{
+margin-top:30px;
+display:flex;
+flex-wrap:wrap;
+gap:15px;
+justify-content:center;
+}
+
+button{
+font-size:20px;
+padding:12px 20px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+background:#ff4d6d;
+color:white;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+p{
+max-width:600px;
+font-size:20px;
+}
+
+img{
+width:300px;
+border-radius:20px;
+margin:20px;
+}
+
+/* NOTAS MUSICALES */
+
+.nota{
+position:absolute;
+font-size:25px;
+animation:flotar 4s linear infinite;
+}
+
+@keyframes flotar{
+0%{transform:translateY(100vh);opacity:0;}
+20%{opacity:1;}
+100%{transform:translateY(-10vh);opacity:0;}
+}
+
+</style>
+</head>
+
+<body>
+
+<video autoplay muted loop id="videoFondo">
+<source src="fondo.mp4">
+</video>
+
+<!-- INICIO -->
+
+<div id="inicio" class="pantalla activa">
+
+<h1>⚙️ La Máquina de Universos</h1>
+
+<p>
+Exploré muchos universos posibles…
+pero todos tienen algo en común.
+</p>
+
+<div class="botones">
+
+<button onclick="mostrar('colores')">🎨 Universo de colores</button>
+<button onclick="mostrar('tiempo')">🕰 Universo del tiempo</button>
+<button onclick="mostrar('musica')">🎵 Universo musical</button>
+<button onclick="mostrar('caos')">🌀 Universo caótico</button>
+<button onclick="mostrar('secreto')">❤️ Universo secreto</button>
+
+</div>
+
+</div>
+
+<!-- COLORES -->
+
+<div id="colores" class="pantalla" style="background-image:url('fondo1.jpg')">
+
+<h1>🎨 Universo de colores</h1>
+
+<img src="img1.png">
+
+<p>
+En este universo el cielo cambia de colores…
+pero sigues siendo lo más bonito que existe.
+</p>
+
+<button onclick="volver()">Volver</button>
+
+</div>
+
+<!-- TIEMPO -->
+
+<div id="tiempo" class="pantalla">
+
+<video autoplay muted loop class="videoFondo">
+<source src="fondo2.mp4">
+</video>
+
+<h1>🕰 Universo del tiempo</h1>
+
+<img src="img2.png">
+
+<p>
+En este universo el tiempo corre diferente…
+pero igual volvería a encontrarte.
+</p>
+
+<button onclick="volver()">Volver</button>
+
+</div>
+
+<!-- MUSICA -->
+
+<div id="musica" class="pantalla" style="background-image:url('fondo3.jpg')">
+
+<h1>🎵 Universo musical</h1>
+
+<audio id="cancionMusica" src="Song.mp3"></audio>
+
+<video autoplay loop muted playsinline width="300" style="border-radius:20px;margin:20px;">
+<source src="video2.mp4">
+</video>
+
+<p>
+En este universo todo es música…
+pero mi canción favorita sigue siendo tu risa.
+</p>
+
+<button onclick="volver()">Volver</button>
+
+</div>
+
+<!-- CAOS -->
+
+<div id="caos" class="pantalla">
+
+<video autoplay muted loop class="videoFondo">
+<source src="fondo4.mp4">
+</video>
+
+<h1>🌀 Universo caótico</h1>
+
+<img src="img4.png">
+
+<p>
+Incluso cuando todo es caos…
+tú sigues siendo mi lugar favorito.
+</p>
+
+<button onclick="volver()">Volver</button>
+
+</div>
+
+<!-- SECRETO -->
+
+<div id="secreto" class="pantalla">
+
+<video autoplay muted loop class="videoFondo">
+<source src="fondo5.mp4">
+</video>
+
+<h1>❤️ Universo secreto</h1>
+
+<img src="img5.png">
+
+<p>
+Probé todos los universos posibles…
+y en todos elegí quedarme contigo.
+</p>
+
+<button onclick="mostrar('final')">Continuar</button>
+
+</div>
+
+<!-- FINAL -->
+
+<div id="final" class="pantalla">
+
+<h1>Angela 💖 Fernando</h1>
+
+<p>
+En todos los universos posibles…<br>
+siempre te elegiría otra vez.
+</p>
+
+<img src="img5.jpg">
+
+<button onclick="volver()">Volver al inicio</button>
+
+</div>
+
+<script>
+
+function mostrar(id){
+
+document.querySelectorAll(".pantalla").forEach(p=>p.classList.remove("activa"))
+
+document.getElementById(id).classList.add("activa")
+
+/* CONTROL MUSICA */
+
+let audio=document.getElementById("cancionMusica")
+
+if(audio){
+audio.pause()
+audio.currentTime=0
+}
+
+if(id==="musica"){
+
+audio.play()
+
+notasMusicales()
+
+}
+
+}
+
+function volver(){
+
+mostrar("inicio")
+
+}
+
+/* NOTAS MUSICALES */
+
+function notasMusicales(){
+
+for(let i=0;i<40;i++){
+
+setTimeout(()=>{
+
+let nota=document.createElement("div")
+
+nota.className="nota"
+nota.innerHTML="🎵"
+
+nota.style.left=Math.random()*100+"%"
+
+document.body.appendChild(nota)
+
+setTimeout(()=>{nota.remove()},4000)
+
+},i*120)
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
